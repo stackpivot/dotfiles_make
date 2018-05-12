@@ -1,4 +1,3 @@
-
 export GOPATH := ${HOME}
 
 init: ## Initial deploy dotfiles
@@ -6,7 +5,6 @@ init: ## Initial deploy dotfiles
 	ln -vsf ${PWD}/vim/vimrc.symlink   ${HOME}/.vimrc
 	# install vim plug
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 	ln -vsf ${PWD}/git/gitignore.symlink   ${HOME}/.gitignore
 	ln -vsf ${PWD}/git/gitconfig.symlink   ${HOME}/.gitconfig
 	# ln -vsf ${PWD}/.npmrc   ${HOME}/.npmrc
@@ -94,7 +92,7 @@ blackarch:
 	rm blackarch-keyring.pkg.tar.xz.sig
 	pacman --noc -U blackarch-keyring.pkg.tar.xz
 	echo "\n[blackarch]\nServer = https://download.nus.edu.sg/mirror/blackarch/\$repo/os/\$arch\n" |  sudo tee -a /etc/pacman.conf
-	sudo pacman -Syyu
+	sudo pacman -Syyu --noconfirm
 
 
 
@@ -106,6 +104,8 @@ chromium: ## Install chromium and noto-fonts
 	sudo pacman -S noto-fonts noto-fonts-cjk
 	sudo pacman -S chromium
 
+vim:
+	vim +'PlugInstall --sync' +qa
 
 
 pacmanbackup: ## Backup arch linux packages
